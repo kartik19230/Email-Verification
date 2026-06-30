@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore compiled class files
+*.class
+
+# Ignore build and target directories
+target/
+build/
+bin/
+
+# Ignore local configuration and IDE files
+.settings/
+.classpath
+.project
+.factorypath
