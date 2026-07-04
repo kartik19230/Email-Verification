@@ -1,5 +1,9 @@
 package com.kk.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +31,9 @@ public class User {
 	private String password;
 	
 	private Boolean enabled = false;
+	
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 	
 
 }

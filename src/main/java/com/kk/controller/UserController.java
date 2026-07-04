@@ -1,9 +1,12 @@
-package com.kk.repository;
+package com.kk.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kk.dto.LoginDTO;
+import com.kk.dto.UserDTO;
 import com.kk.entity.User;
+import com.kk.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,16 +24,18 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	@PostMapping("register")
-	public ResponseEntity<String> postMethodName(@RequestBody User user) {
+	@PostMapping("/register")
+	public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
 		
-		userService.register(user);
+		System.out.println("Request Recieved");
+		
+		userService.register(userDTO);
 		return ResponseEntity.ok("Registration Successfull. Check your mail to verify");
 		
 	}
 	
 	@GetMapping("/verify")
-	public ResponseEntity<String> getMethodName(@RequestParam("token") String token) {
+	public ResponseEntity<String> verify(@RequestParam String token) {
 
 		String result = userService.verifyToken(token);
 		
@@ -40,6 +46,12 @@ public class UserController {
 		return ResponseEntity.badRequest().body(result);
 	}
 	
-	
+	@PostMapping("login")
+	public ResponseEntity<String> login(@RequestBody LoginDTO dto){
+		
+		String message = userService.login(dto);
+		
+		return ResponseEntity.ok(message);
+	}
 
 }
